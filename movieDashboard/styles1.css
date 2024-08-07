@@ -1,9 +1,105 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Movie Dashboard</title>
-  <link rel="stylesheet" href="./styles1.css">
-  <style>
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Container Styling */
+.container1 {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-color: #f4f4f4;
+  background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(./../Images/banner.jpg);
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+}
+
+/* Title Styling */
+.title {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.title:hover {
+  color: #007bff;
+}
+
+/* Search Bar Styling */
+.search-bar {
+  padding: 10px;
+  font-size: 1em;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Grid Styling */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Movie Card Styling */
+.movie-card {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Overlay Styling */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 20px;
+  text-align: left;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.movie-card:hover .overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+
     body {
       font-family: Arial, sans-serif;
       /* padding: 20px; */
@@ -336,111 +432,4 @@
     }
    
 
-  </style>
-</head>
-<!-- <body ng-app="movieApp" >
-  <div class="header" >
-    <button ng-click="goToProfile()" class="filter-button">Profile</button>
-    <button ng-click="logout()" class="filter-button">Logout</button>
-  </div>
-  <div ng-controller="dashboardController" class="container1" >
-    <h1 class="title">Search A Movie</h1>
-    <input type="text" ng-model="searchQuery" placeholder="Search for movies..." class="search-bar">
-    <button ng-click="searchMovies()" class="search-button" id="btn">Search</button>
-    <br>
-    <input type="text" ng-model="searchLanguage" placeholder="Language" class="search-bar">
-    <input type="text" ng-model="searchYear" placeholder="Year" class="search-bar">
-    <input type="number" ng-model="searchTickets" placeholder="Tickets Available" class="search-bar">
-    <button ng-click="searchMoviesWithFilters()" class="filter-button">Add Filters</button>
-    <div ng-if="loading" class="loading">Loading...</div>
-    <div ng-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-    <div class="grid">
-      <div class="movie-card" ng-repeat="movie in filteredMovies" ng-style="{'background-image': 'url(' + movie.i + ')'}">
-        <div class="overlay">
-          <h2>{{ movie.l }}</h2>
-          <p>Year: {{ movie.y }}</p>
-          <p>Language: {{ movie.r }}</p>
-          <p>Vote Average: {{ movie.ad }}</p>
-          <p>Original Title: {{movie.ol}}</p>
-          <p>Tickets Available: {{ movie.ticketsAvailable || 'N/A' }}</p>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-  <body ng-app="movieApp">
-    <div ng-controller="dashboardController" class="container1">
-    <div class="nav-bar">
-      <h1>Movie Dashboard</h1>
-      <div class="dropdown">
-        <button class="nav-button" onclick="toggleDropdown()"><img src="https://lh3.googleusercontent.com/oUUiPB9sq3ACq4bUaRmo8pgvC4FUpRRrQKcGIBSOsafawZfRpF1vruFeYt6uCfL6wGDQyvOi6Ez9Bpf1Fb7APKjIyVsft7FLGR6QqdRFTiceNQBm1In9aZyrXp33cZi9pUNqjHASdA=s170-no" alt="Profile"></button>
-        <div class="dropdown-content" id="profileDropdown">
-          <div class="card">
-            <img src="https://lh3.googleusercontent.com/oUUiPB9sq3ACq4bUaRmo8pgvC4FUpRRrQKcGIBSOsafawZfRpF1vruFeYt6uCfL6wGDQyvOi6Ez9Bpf1Fb7APKjIyVsft7FLGR6QqdRFTiceNQBm1In9aZyrXp33cZi9pUNqjHASdA=s170-no" alt="Person" class="card__image">
-            <p class="card__name">Bianca Serrano</p>
-           
-            
-            <button class="btn draw-border">Profile</button>
-            <button class="btn draw-border" ng-click="logout()">Logout</button>
-          </div>
-        </div>
-      </div>
-    </div>
   
-    <!-- <div class="header">
-      <button ng-click="goToProfile()" class="filter-button">Profile</button>
-      <button ng-click="logout()" class="filter-button">Logout</button>
-    </div> -->
-  
-      <h1 class="title">Search A Movie</h1>
-      <input type="text" ng-model="searchQuery" placeholder="Search for movies..." class="search-bar">
-      <button ng-click="searchMovies()" class="search-button" id="btn">Search</button>
-      <br>
-      <input type="text" ng-model="searchLanguage" placeholder="Language" class="search-bar">
-      <input type="text" ng-model="searchYear" placeholder="Year" class="search-bar">
-      <input type="number" ng-model="searchTickets" placeholder="Tickets Available" class="search-bar">
-      <button ng-click="searchMoviesWithFilters()" class="filter-button">Add Filters</button>
-      <div ng-if="loading" class="loading">Loading...</div>
-      <div ng-if="errorMessage" class="error-message">{{ errorMessage }}</div>
-      <div class="grid">
-        <div class="movie-card" ng-repeat="movie in filteredMovies" ng-style="{'background-image': 'url(' + movie.i + ')'}" ng-click="playTrailer(movie.id)">
-          <div class="overlay">
-            <h2>{{ movie.l }}</h2>
-            <p>Year: {{ movie.y }}</p>
-            <p>Language: {{ movie.r }}</p>
-            <p>Vote Average: {{ movie.ad }}</p>
-            <p>Original Title: {{ movie.ol }}</p>
-            <p>Tickets Available: {{ movie.ticketsAvailable || 'N/A' }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script>
-      function toggleDropdown() {
-        var profileDropdown = document.getElementById('profileDropdown');
-        if (profileDropdown.style.display === 'none' || profileDropdown.style.display === '') {
-          profileDropdown.style.display = 'block';
-        } else {
-          profileDropdown.style.display = 'none';
-        }
-      }
-  
-      window.onclick = function(event) {
-        if (!event.target.matches('.nav-button')) {
-          var dropdowns = document.getElementsByClassName("dropdown-content");
-          for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.style.display === 'block') {
-              openDropdown.style.display = 'none';
-            }
-          }
-        }
-      }
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="dashboardController.js"></script>
-  </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <script src="dashboardController.js"></script>
-</body>
-</html>

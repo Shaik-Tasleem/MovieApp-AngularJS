@@ -11,7 +11,7 @@ app.config(function($routeProvider) {
       controller: "register"
     })
     .when('/dashboard', {
-      templateUrl: "/public/dashboard.html",
+      templateUrl: "/movieDashboard/dashboard.html",
       controller: "dashboardController"
     })
     .otherwise({

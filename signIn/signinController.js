@@ -15,7 +15,7 @@ app.controller('signin', ['$scope', '$http', '$location','$window', function($sc
         console.log(response.data.message);
         // alert(response.data.message);
         if (response.data.message === 'Sign in successful') {
-          $window.open('dashboard.html','_self');
+          $window.open('/movieDashboard/dashboard.html','_self');
         }
       })
       .catch(function(error) {

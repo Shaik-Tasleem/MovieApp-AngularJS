@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Dashboard</title>
+  <link rel="stylesheet" href="./styles1.css">
+
+</head>
+  <body ng-app="movieApp">
+    <div ng-controller="dashboardController" class="container1">
+    <div class="nav-bar">
+      <h1>IMDB 2.0</h1>
+      <div class="dropdown">
+        <button class="nav-button" onclick="toggleDropdown()"><img src="https://lh3.googleusercontent.com/oUUiPB9sq3ACq4bUaRmo8pgvC4FUpRRrQKcGIBSOsafawZfRpF1vruFeYt6uCfL6wGDQyvOi6Ez9Bpf1Fb7APKjIyVsft7FLGR6QqdRFTiceNQBm1In9aZyrXp33cZi9pUNqjHASdA=s170-no" alt="Profile"></button>
+        <div class="dropdown-content" id="profileDropdown">
+          <div class="card">
+            <img src="https://lh3.googleusercontent.com/oUUiPB9sq3ACq4bUaRmo8pgvC4FUpRRrQKcGIBSOsafawZfRpF1vruFeYt6uCfL6wGDQyvOi6Ez9Bpf1Fb7APKjIyVsft7FLGR6QqdRFTiceNQBm1In9aZyrXp33cZi9pUNqjHASdA=s170-no" alt="Person" class="card__image">
+            <p class="card__name">Venu</p>
+           
+            
+            <button class="btn draw-border">Profile</button>
+            <button class="btn draw-border" ng-click="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    
+  
+      <h1 class="title">Search A Movie</h1>
+      <input type="text" ng-model="searchQuery" placeholder="Search for movies..." class="search-bar">
+      <button ng-click="searchMovies()" class="search-button" id="btn">Search</button>
+      <br>
+      <input type="text" ng-model="searchLanguage" placeholder="Language" class="search-bar">
+      <input type="text" ng-model="searchYear" placeholder="Year" class="search-bar">
+      <input type="number" ng-model="searchTickets" placeholder="Tickets Available" class="search-bar">
+      <button ng-click="searchMoviesWithFilters()" class="filter-button">Add Filters</button>
+      <div ng-if="loading" class="loading">Loading...</div>
+      <div ng-if="errorMessage" class="error-message">{{ errorMessage }}</div>
+      <div class="grid">
+        <div class="movie-card" ng-repeat="movie in filteredMovies" ng-style="{'background-image': 'url(' + movie.i + ')'}" ng-click="playTrailer(movie.id)">
+          <div class="overlay">
+            <h2>{{ movie.l }}</h2>
+            <p>Year: {{ movie.y }}</p>
+            <p>Language: {{ movie.r }}</p>
+            <p>Vote Average: {{ movie.ad }}</p>
+            <p>Original Title: {{ movie.ol }}</p>
+            <p>Tickets Available: {{ movie.ticketsAvailable || 'N/A' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function toggleDropdown() {
+        var profileDropdown = document.getElementById('profileDropdown');
+        if (profileDropdown.style.display === 'none' || profileDropdown.style.display === '') {
+          profileDropdown.style.display = 'block';
+        } else {
+          profileDropdown.style.display = 'none';
+        }
+      }
+  
+      window.onclick = function(event) {
+        if (!event.target.matches('.nav-button')) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.style.display === 'block') {
+              openDropdown.style.display = 'none';
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="dashboardController.js"></script>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="dashboardController.js"></script>
+</body>
+</html>
