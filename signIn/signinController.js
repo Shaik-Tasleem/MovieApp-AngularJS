@@ -1,4 +1,4 @@
-// signInController.js
+
 
 app.controller('signin', ['$scope', '$http', '$location','$window', function($scope, $http, $location,$window) {
   $scope.email = '';
